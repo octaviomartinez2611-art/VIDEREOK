@@ -1,0 +1,12 @@
+import { ArrowRight, Check, Link2, CircleHelp } from 'lucide-react';
+import { overlaps } from '../data/demo';
+import { Button } from './ui/button';
+
+export const DemoConnect = ({ choice, setChoice, onBuild, remembered }) => {
+  const matches = overlaps();
+  return <div className="demo-connect" data-testid="demo-connect-panel"><div className="demo-panel-heading"><div><h3 data-testid="demo-connect-title">Encontramos lo que tienen en común.</h3><p data-testid="demo-match-summary">{matches.length} de los 5 correos de tu web también aparecen en tu CRM.</p></div><span className="demo-local-tag"><Link2 size={14} /> Conexión por email</span></div>
+    <div className="connection-evidence"><span>clientes_crm.<strong>email</strong></span><div className="evidence-line"><Check size={15} /></div><span>usuarios_web.<strong>correo</strong></span><span className="match-percentage" data-testid="demo-overlap-percentage">80% de coincidencia</span></div>
+    <div className="decision-card"><div className="decision-question"><CircleHelp size={21} strokeWidth={1.5} /><div><h4 data-testid="demo-ambiguity-question">Una cosa que solo vos podés confirmar.</h4><p data-testid="demo-ambiguity-description">El correo es el mismo, pero el nombre cambia. ¿Son la misma persona?</p></div></div><div className="identity-comparison"><div><span>EN TU CRM</span><strong>Pedro Ruiz</strong><small>pedro@ejemplo.com</small></div><span className="identity-equal">?</span><div><span>EN TU WEB</span><strong>Pedro Rodríguez</strong><small>pedro@ejemplo.com</small></div></div><div className="decision-options"><button data-testid="demo-merge-yes" aria-pressed={choice === true} className={choice === true ? 'selected' : ''} onClick={() => setChoice(true)}><span className="radio-dot" />Sí, es la misma persona{choice === true && <Check size={15} />}</button><button data-testid="demo-merge-no" aria-pressed={choice === false} className={choice === false ? 'selected' : ''} onClick={() => setChoice(false)}><span className="radio-dot" />No, mantenelos separados{choice === false && <Check size={15} />}</button></div></div>
+    <div className="demo-panel-footer"><span data-testid="demo-memory-note">{remembered ? 'Recordamos tu decisión anterior. Podés cambiarla.' : 'Tu decisión se recordará en este navegador.'}</span><Button className="action" onClick={onBuild} disabled={choice === null} data-testid="demo-build-button">Crear mi visión del negocio <ArrowRight size={16} /></Button></div>
+  </div>;
+};

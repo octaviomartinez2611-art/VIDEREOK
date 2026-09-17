@@ -1,0 +1,46 @@
+{
+  "summary": "Executed backend API pytest suite and full frontend integration/UI regression on external preview URL. Core flows pass, with one content consistency issue in no-merge demo state.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {
+        "flow": "Demo > Preguntar step after selecting 'No, mantenelos separados'",
+        "issue": "Ready description still says '6 pedidos conectados' while warning explicitly says one Pedro order remains unassigned.",
+        "affected_selectors": [
+          "[data-testid='demo-ready-description']",
+          "[data-testid='demo-unmerged-warning']"
+        ]
+      }
+    ],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_access_requests.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "Make demo ready-description conditional for unmerged path to avoid claiming all 6 orders are connected.",
+    "After wording fix, rerun no-merge demo assertions for copy + consistency."
+  ],
+  "critical_code_review_comments": [
+    "DemoQuestions uses static text for connected-order count; this conflicts with branch-specific ambiguity logic and can mislead users.",
+    "Animated answer transitions temporarily duplicate testids for answer elements; prefer unique test hooks or query only active panel in future tests."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_access_requests.py",
+    "/app/test_reports/iteration_1.json"
+  ],
+  "success_rate": {
+    "backend": "100%",
+    "frontend": "98%"
+  },
+  "seed_data_creation": "Submitted/validated synthetic lead qa.videre@example.com via API and UI; idempotency confirmed (single DB row retained).",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Primary E2E flow is stable on external URL. For DemoQuestions value checks, use active/last answer node due framer-motion transition overlap. Verified mobile widths 320/390/768 and desktop 1440/1920 have no horizontal overflow. Modal focus trap and mobile internal scroll pass.",
+  "rca of the issue": "Root cause: hardcoded copy in DemoQuestions (`6 pedidos conectados`) is not derived from merge decision/model state. Repro: Demo -> Conectar -> choose 'No, mantenelos separados' -> Crear mi visión -> observe warning states one order unassigned but ready-description still claims all 6 connected. Mitigation: compute connected order count from resolved model branch and render conditional copy."
+}

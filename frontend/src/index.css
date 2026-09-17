@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 52 29% 95%; --foreground: 90 9% 14%;
+    --card: 52 29% 95%; --card-foreground: 90 9% 14%;
+    --popover: 52 29% 97%; --popover-foreground: 90 9% 14%;
+    --primary: 90 9% 14%; --primary-foreground: 52 29% 95%;
+    --secondary: 52 15% 90%; --secondary-foreground: 90 9% 14%;
+    --muted: 52 15% 90%; --muted-foreground: 80 4% 43%;
+    --accent: 52 15% 90%; --accent-foreground: 90 9% 14%;
+    --destructive: 0 65% 42%; --destructive-foreground: 0 0% 98%;
+    --border: 50 13% 83%; --input: 50 13% 80%; --ring: 80 17% 40%; --radius: 1rem;
+  }
+  * { @apply border-border; box-sizing: border-box; }
+  body { @apply bg-background text-foreground; margin: 0; font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; }
+}
+html { scroll-padding-top: 110px; }
+body { background: #f5f4ed; color: #282c25; }
+button, a, input, select { -webkit-tap-highlight-color: transparent; }
+button, a { touch-action: manipulation; }
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; }
+a { color: inherit; text-decoration: none; }
+::selection { background: #d6dec0; color: #282c25; }
+:focus-visible { outline: 2px solid #75814d; outline-offset: 5px; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
