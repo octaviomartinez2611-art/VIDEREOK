@@ -5,25 +5,25 @@
 
 @layer base {
   :root {
-    --background: 222 22% 4%;
-    --foreground: 36 15% 90%;
-    --card: 222 18% 7%;
-    --card-foreground: 36 15% 90%;
-    --popover: 222 18% 7%;
-    --popover-foreground: 36 15% 90%;
-    --primary: 36 15% 90%;
-    --primary-foreground: 222 22% 4%;
-    --secondary: 222 12% 13%;
-    --secondary-foreground: 36 15% 90%;
-    --muted: 222 12% 13%;
-    --muted-foreground: 36 5% 55%;
-    --accent: 40 48% 55%;
-    --accent-foreground: 36 15% 90%;
+    --background: 0 0% 100%;
+    --foreground: 100 12% 8%;
+    --card: 60 20% 95%;
+    --card-foreground: 100 12% 8%;
+    --popover: 60 20% 95%;
+    --popover-foreground: 100 12% 8%;
+    --primary: 100 12% 8%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 60 12% 91%;
+    --secondary-foreground: 100 12% 8%;
+    --muted: 60 12% 91%;
+    --muted-foreground: 90 6% 45%;
+    --accent: 156 47% 21%;
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 65% 42%;
     --destructive-foreground: 0 0% 98%;
-    --border: 222 10% 16%;
-    --input: 222 10% 19%;
-    --ring: 40 48% 55%;
+    --border: 90 8% 88%;
+    --input: 90 8% 85%;
+    --ring: 156 47% 21%;
     --radius: 0.5rem;
   }
   * { @apply border-border; box-sizing: border-box; }
@@ -31,14 +31,14 @@
 }
 
 html { scroll-padding-top: 100px; }
-body { background: #08090C; color: #E8E4DD; }
+body { background: #FFFFFF; color: #14150F; }
 button, a, input, select { -webkit-tap-highlight-color: transparent; }
 button, a { touch-action: manipulation; }
 button { cursor: pointer; }
 button:disabled { cursor: not-allowed; }
 a { color: inherit; text-decoration: none; }
-::selection { background: #3d3526; color: #E8E4DD; }
-:focus-visible { outline: 2px solid #C5A059; outline-offset: 4px; }
+::selection { background: #cfe3da; color: #14150F; }
+:focus-visible { outline: 2px solid #1B4D3E; outline-offset: 4px; }
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }

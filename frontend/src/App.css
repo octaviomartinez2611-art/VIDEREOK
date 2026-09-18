@@ -1,19 +1,19 @@
 /* ================================================
-   VIDERE — Dark Classical · JetBrains Mono · Dynamic Island
+   VIDERE — Light Classical · JetBrains Mono · Dynamic Island
    ================================================ */
 
 :root {
-  --bg: #08090C;
-  --surface: #0F1117;
-  --surface-2: #161920;
-  --surface-warm: #12110E;
-  --border: rgba(255,255,255,0.06);
-  --border-hover: rgba(255,255,255,0.12);
-  --text: #E8E4DD;
-  --text-dim: #8B8A85;
-  --text-muted: #5C5B57;
-  --gold: #C5A059;
-  --gold-hover: #D4B978;
+  --bg: #FFFFFF;
+  --surface: #F5F4EE;
+  --surface-2: #ECEAE0;
+  --surface-warm: #F2F0E4;
+  --border: rgba(20,21,15,0.08);
+  --border-hover: rgba(20,21,15,0.16);
+  --text: #14150F;
+  --text-dim: #5A5D52;
+  --text-muted: #8A8D80;
+  --gold: #1B4D3E;
+  --gold-hover: #2E6E58;
   --demo-paper: #f5f4ed;
   --demo-ink: #282c25;
   --demo-line: #d8d9cd;
@@ -32,12 +32,12 @@
 .island {
   position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
   z-index: 50;
-  background: rgba(15, 17, 23, 0.82);
+  background: rgba(255, 255, 255, 0.82);
   backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255,255,255,0.07);
+  border: 1px solid rgba(20,21,15,0.08);
   border-radius: 100px;
   padding: 8px 10px;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04) inset;
+  box-shadow: 0 8px 40px rgba(20,21,15,0.1), 0 0 0 1px rgba(20,21,15,0.03) inset;
   transition: max-width 0.55s cubic-bezier(0.4, 0, 0.1, 1),
               padding 0.45s cubic-bezier(0.4, 0, 0.1, 1),
               border-radius 0.45s cubic-bezier(0.4, 0, 0.1, 1);
@@ -65,7 +65,7 @@
   letter-spacing: -0.2px;
 }
 .island-links a:hover { color: var(--text); }
-.island-links a.active { color: var(--text); background: rgba(255,255,255,0.07); }
+.island-links a.active { color: var(--text); background: rgba(20,21,15,0.06); }
 .island-cta {
   display: inline-flex; align-items: center; gap: 7px;
   padding: 8px 18px; font-size: 10.5px; font-weight: 600;
@@ -171,8 +171,8 @@
 .etym-hero-img-fade {
   position: absolute; inset: 0;
   background:
-    linear-gradient(180deg, rgba(8,9,12,0.4) 0%, rgba(8,9,12,0.1) 30%, rgba(8,9,12,0.85) 85%, var(--bg) 100%),
-    linear-gradient(90deg, rgba(8,9,12,0.6) 0%, transparent 50%);
+    linear-gradient(180deg, rgba(20,21,15,0.15) 0%, rgba(20,21,15,0.05) 30%, rgba(255,255,255,0.7) 85%, var(--bg) 100%),
+    linear-gradient(90deg, rgba(20,21,15,0.25) 0%, transparent 50%);
 }
 .etym-hero-text {
   position: relative; z-index: 2;
@@ -360,7 +360,7 @@
 /* Demo workspace — light card */
 .demo-workspace {
   background: var(--demo-paper);
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(20,21,15,0.1);
   border-radius: 12px; color: var(--demo-ink); overflow: hidden;
   font-family: 'JetBrains Mono', monospace;
 }
@@ -522,7 +522,7 @@
   display: flex; align-items: center; justify-content: space-between;
   gap: 10px; padding-top: 24px;
   height: clamp(140px, 22vw, 260px);
-  overflow: hidden; color: rgba(255,255,255,0.03);
+  overflow: hidden; color: rgba(20,21,15,0.04);
 }
 .footer-wordmark > span { font-size: clamp(130px, 22vw, 280px); font-weight: 700; line-height: 0.85; letter-spacing: -15px; }
 .footer-wordmark > svg { width: 18%; height: 70%; stroke-width: 1; }
