@@ -1,4 +1,3 @@
-import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowUpRight, ArrowRight } from 'lucide-react';
 import { Button } from './ui/button';
 
@@ -16,14 +15,21 @@ export const Brand = ({ footer = false }) => (
 );
 
 export const Action = ({ children, onClick, href, secondary = false, id, arrow = 'up', className = '', ...props }) => (
-  <Button asChild={Boolean(href)} onClick={onClick} variant={secondary ? 'outline' : 'default'} className={`action ${secondary ? 'action-secondary' : ''} ${className}`} data-testid={id} {...props}>
-    {href ? <a href={href}>{children}{arrow === 'up' ? <ArrowUpRight size={17} /> : <ArrowRight size={17} />}</a> : <>{children}{arrow === 'up' ? <ArrowUpRight size={17} /> : <ArrowRight size={17} />}</>}
+  <Button
+    asChild={Boolean(href)}
+    onClick={onClick}
+    variant={secondary ? 'outline' : 'default'}
+    className={`action ${secondary ? 'action-secondary' : ''} ${className}`}
+    data-testid={id}
+    {...props}
+  >
+    {href
+      ? <a href={href}>{children}{arrow === 'up' ? <ArrowUpRight size={17} /> : <ArrowRight size={17} />}</a>
+      : <>{children}{arrow === 'up' ? <ArrowUpRight size={17} /> : <ArrowRight size={17} />}</>
+    }
   </Button>
 );
 
-export const Reveal = ({ children, className = '', delay = 0, ...props }) => {
-  const reduce = useReducedMotion();
-  return <motion.div className={className} initial={reduce ? false : { opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-35px' }} transition={{ duration: .75, delay, ease: [.22, 1, .36, 1] }} {...props}>{children}</motion.div>;
-};
-
-export const Chapter = ({ number, children, id }) => <div className="chapter-label" data-testid={id}><span>{number} /</span>{children}</div>;
+export const Reveal = ({ children, className = '', ...props }) => (
+  <div className={className} {...props}>{children}</div>
+);

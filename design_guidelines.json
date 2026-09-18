@@ -1,0 +1,127 @@
+{
+  "project_name": "VIDERE - SME Ontology & Data Fusion Landing Page",
+  "app_type": "landing_page",
+  "aesthetic_direction": "Palantir-inspired Dark Classical Minimalist. High-contrast obsidian canvas, dramatic lighting, sharp 1px grid borders, Roman/Latin classical heritage paired with modern high-density data fusion UI.",
+  "font_requirements": {
+    "primary_font": "Quicksand",
+    "rule": "CRITICAL: ONLY ONE font family (Quicksand) allowed across the ENTIRE app (headings, subheadings, body, code blocks, UI controls, navigation). Do NOT import or use Inter, Space Grotesk, Roboto, or any other font.",
+    "google_font_import": "@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');",
+    "typography_scale": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white",
+      "h2": "text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-white",
+      "h3": "text-xl sm:text-2xl font-medium text-slate-100",
+      "body": "text-base font-normal text-slate-300 leading-relaxed",
+      "small": "text-sm font-medium text-slate-400"
+    }
+  },
+  "strict_prohibitions": [
+    "NO scroll reveal animations or fade-in-on-scroll effects — everything must be immediately rendered and visible.",
+    "NO 'solicitar acceso' or 'request access' buttons anywhere on the page.",
+    "NO small marketing labels, tags, eyebrows, or badge pills (e.g. 'NEW FEATURE', 'NUEVO', 'ONTOLOGY 2.0').",
+    "NO carousels, auto-playing marquees, or infinite scrolling image sliders.",
+    "NO transparent dropdowns, headers without background blur, or low-contrast text on images.",
+    "NO multi-font pairings — Quicksand ONLY."
+  ],
+  "color_palette": {
+    "canvas_background": "#08090C",
+    "surface_card": "#0F1117",
+    "surface_border": "rgba(255, 255, 255, 0.12)",
+    "primary_text": "#F8FAFC",
+    "secondary_text": "#94A3B8",
+    "accent_gold": "#C5A059",
+    "accent_stone": "#334155",
+    "interactive_blue": "#3B82F6",
+    "interactive_hover": "#2563EB"
+  },
+  "image_urls": {
+    "hero_latin_statue": {
+      "url": "https://images.unsplash.com/photo-1601887389937-0b02c26b602c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHxf||...",
+      "direct_fallback": "https://images.pexels.com/photos/31466235/pexels-photo-31466235.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "Classical Roman marble statue hero image with dark lighting backdrop.",
+      "usage": "Hero section - Right side or background ambient focal point for the Latin statue."
+    },
+    "trust_classical_columns": {
+      "url": "https://images.pexels.com/photos/7783966/pexels-photo-7783966.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "direct_fallback": "https://images.unsplash.com/photo-1673205540481-ffdc17ef6c47?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHwx...",
+      "description": "Dramatic grayscale architectural photo of classical Roman columns.",
+      "usage": "Trust & Heritage section showcase."
+    }
+  },
+  "sections_breakdown": {
+    "navigation": {
+      "component": "Navigation.jsx",
+      "style": "Fixed top-0 w-full z-50 bg-[#08090C]/80 backdrop-blur-xl border-b border-white/10 px-6 py-4 flex items-center justify-between",
+      "elements": [
+        "Brand Logo: VIDERE in high-contrast Quicksand bold text with a subtle classical chevron symbol",
+        "Nav Links: 'Cómo Funciona', 'Demostración Interactiva', 'Arquitectura & Ontología', 'Preguntas Frecuentes'",
+        "CTA Button: 'Explorar Plataforma' or 'Ver Demostración' (NO 'solicitar acceso')"
+      ]
+    },
+    "hero": {
+      "component": "Hero.jsx",
+      "layout": "Grid 12-cols or split 2-col flex on desktop. Left side editorial statement and CTAs; Right side featured classical Roman statue with dark ambient glow and crisp grid border overlay.",
+      "headline": "VIDERE — Ver lo invisible en los datos de tu empresa",
+      "subheadline": "Fusión ontológica de datos para PyMEs. Transforma silos dispersos en una vista unificada y estructurada con la precisión de sistemas de clase mundial.",
+      "cta_buttons": [
+        "Ver Demostración (Primary CTA with sharp dark button and gold/blue accent outline)",
+        "Explorar Arquitectura (Secondary border button)"
+      ],
+      "image_element": "Latin statue image with high contrast lighting, black gradient vignette, and crisp subtle grid lines."
+    },
+    "how_it_works": {
+      "component": "HowItWorks.jsx",
+      "layout": "Swiss-grid structure (3-4 dense cards). Dark obsidian background with 1px border (#1E293B).",
+      "steps": [
+        "1. Ingestión Unificada: Conexión inmediata a ERPs, CRMs, planillas y bases de datos heterogéneas.",
+        "2. Grafo Ontológico: Mapeo de entidades, relaciones y jerarquías operativas del negocio.",
+        "3. Decisión Ejecutiva: Consultas complejas en tiempo real sin requerir ingenieros de datos."
+      ]
+    },
+    "interactive_demo": {
+      "component": "Demo.jsx",
+      "style": "Keep dark background interface with graph/ontology connection visualization, source inspector, and query builder.",
+      "key_feature": "Interactive node graph selector, live data preview table, and real-time SME dataset filtering."
+    },
+    "trust": {
+      "component": "Trust.jsx",
+      "layout": "Architectural grid section featuring the grayscale photo of Roman columns on one side and core trust/security principles on the other side.",
+      "principles": [
+        "Soberanía de Datos: Control local total y cifrado de extremo a extremo.",
+        "Sin Alucinaciones: Ontología determinística para PyMEs.",
+        "Escalabilidad Clásica: Estructura sólida como la arquitectura romana."
+      ]
+    },
+    "faq": {
+      "component": "FAQ.jsx",
+      "layout": "Clean accordion list with dark slate cards and sharp hover highlights.",
+      "questions": [
+        "¿Qué significa VIDERE?",
+        "¿En qué se diferencia VIDERE de un Dashboard tradicional?",
+        "¿Requiere un equipo de ingeniería de datos en la PyME?",
+        "¿Cómo se garantiza la seguridad de la información?"
+      ]
+    },
+    "footer": {
+      "component": "Closing.jsx / Footer",
+      "layout": "Massive typography footer with 'VIDERE' in large Quicksand font, legal links, quick section jumps, and system status indicator.",
+      "tagline": "Fusión de datos y ontología para PyMEs."
+    }
+  },
+  "testing_requirements": {
+    "data_testid_rule": "ALL interactive and key informational elements MUST contain a data-testid attribute in kebab-case format.",
+    "examples": [
+      "data-testid=\"nav-logo-link\"",
+      "data-testid=\"hero-ver-demostracion-button\"",
+      "data-testid=\"demo-node-entity-card\"",
+      "data-testid=\"faq-accordion-item-0\"",
+      "data-testid=\"trust-columns-image\""
+    ]
+  },
+  "instructions_to_main_agent": [
+    "Ensure Quicksand font is loaded globally in index.html or index.css and applied via font-sans or font-family: 'Quicksand', sans-serif.",
+    "Strictly enforce NO scroll animation libraries or reveal triggers — render all elements immediately on load.",
+    "Replace any occurrence of 'Solicitar Acceso' with 'Ver Demostración' or 'Explorar Ontología'.",
+    "Remove any tiny marketing badge pills/tags across all components.",
+    "Ensure all components contain appropriate data-testid attributes for automated testing."
+  ]
+}
