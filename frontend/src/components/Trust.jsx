@@ -1,4 +1,4 @@
-import { ShieldCheck, Fingerprint, ScanEye } from 'lucide-react';
+import { Fingerprint, ScanEye } from 'lucide-react';
 
 const COLUMNS_URL = 'https://images.unsplash.com/photo-1569258592171-357ea26da4df?auto=format&fit=crop&w=1000&q=85';
 
@@ -12,11 +12,6 @@ const principles = [
     icon: Fingerprint,
     title: 'Cada respuesta deja una huella.',
     text: 'No alcanza con tener un número. Tenés que poder entender de dónde salió y qué datos lo sostienen.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Tu negocio. Tus reglas.',
-    text: 'Un motor pensado para usar tu propia clave de IA, con permisos por rol y decisiones que quedan registradas.',
   },
 ];
 
