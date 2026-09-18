@@ -1,4 +1,5 @@
 import { ArrowRight } from 'lucide-react';
+import { FadeImage } from './FadeImage';
 
 const STATUE_URL = 'https://images.unsplash.com/photo-1574359587026-daf1bfd26baa?auto=format&fit=crop&w=1200&q=85';
 
@@ -21,7 +22,7 @@ export const Hero = () => (
         </div>
       </div>
       <div className="hero-statue-wrap" data-testid="hero-statue">
-        <img
+        <FadeImage
           src={STATUE_URL}
           alt="Escultura clásica romana iluminada dramáticamente"
           className="hero-statue"

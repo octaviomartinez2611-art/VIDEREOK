@@ -1,3 +1,5 @@
+import { FadeImage } from './FadeImage';
+
 const EMPEROR_URL = 'https://images.unsplash.com/photo-1760026247363-8e688740c676?auto=format&fit=crop&w=900&q=85';
 const INSCRIPTION_URL = 'https://images.unsplash.com/photo-1708547451794-3dcad64451bd?auto=format&fit=crop&w=900&q=85';
 const BUST_URL = 'https://images.unsplash.com/photo-1775639796838-17bc26858529?auto=format&fit=crop&w=800&q=85';
@@ -6,7 +8,7 @@ export const Etymology = () => (
   <section className="etym-section" id="etimologia" data-testid="etymology-section">
     <div className="etym-hero">
       <div className="etym-hero-img-wrap">
-        <img
+        <FadeImage
           src={EMPEROR_URL}
           alt="Estatua de emperador romano en nicho de mármol"
           className="etym-hero-img"
@@ -56,7 +58,7 @@ export const Etymology = () => (
         </p>
       </div>
       <div className="etym-card etym-card--image">
-        <img
+        <FadeImage
           src={INSCRIPTION_URL}
           alt="Inscripción latina tallada en piedra antigua"
           loading="lazy"
@@ -66,7 +68,7 @@ export const Etymology = () => (
         <div className="etym-inscription-overlay" />
       </div>
       <div className="etym-card etym-card--bust">
-        <img
+        <FadeImage
           src={BUST_URL}
           alt="Busto romano de joven con cabello rizado en museo"
           loading="lazy"

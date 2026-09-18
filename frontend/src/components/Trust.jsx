@@ -1,4 +1,5 @@
 import { Fingerprint, ScanEye } from 'lucide-react';
+import { FadeImage } from './FadeImage';
 
 const COLUMNS_URL = 'https://images.unsplash.com/photo-1569258592171-357ea26da4df?auto=format&fit=crop&w=1000&q=85';
 
@@ -19,7 +20,7 @@ export const Trust = () => (
   <section className="trust-section page-width" id="confianza" data-testid="trust-section">
     <div className="trust-grid">
       <div className="trust-image-wrap">
-        <img
+        <FadeImage
           src={COLUMNS_URL}
           alt="Estructura geométrica de columnas de hormigón iluminada por luz natural"
           loading="lazy"
