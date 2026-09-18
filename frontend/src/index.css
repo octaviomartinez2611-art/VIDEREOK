@@ -5,24 +5,24 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 100 12% 8%;
-    --card: 60 20% 95%;
-    --card-foreground: 100 12% 8%;
-    --popover: 60 20% 95%;
-    --popover-foreground: 100 12% 8%;
-    --primary: 100 12% 8%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 60 12% 91%;
-    --secondary-foreground: 100 12% 8%;
-    --muted: 60 12% 91%;
-    --muted-foreground: 90 6% 45%;
+    --background: 42 39% 91%;
+    --foreground: 45 22% 10%;
+    --card: 42 32% 87%;
+    --card-foreground: 45 22% 10%;
+    --popover: 42 32% 87%;
+    --popover-foreground: 45 22% 10%;
+    --primary: 45 22% 10%;
+    --primary-foreground: 42 39% 91%;
+    --secondary: 42 26% 83%;
+    --secondary-foreground: 45 22% 10%;
+    --muted: 42 26% 83%;
+    --muted-foreground: 42 12% 42%;
     --accent: 156 47% 21%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 65% 42%;
     --destructive-foreground: 0 0% 98%;
-    --border: 90 8% 88%;
-    --input: 90 8% 85%;
+    --border: 42 18% 78%;
+    --input: 42 18% 75%;
     --ring: 156 47% 21%;
     --radius: 0.5rem;
   }
@@ -31,7 +31,7 @@
 }
 
 html { scroll-padding-top: 100px; }
-body { background: #FFFFFF; color: #14150F; }
+body { background: #F5EFE2; color: #201C13; }
 button, a, input, select { -webkit-tap-highlight-color: transparent; }
 button, a { touch-action: manipulation; }
 button { cursor: pointer; }

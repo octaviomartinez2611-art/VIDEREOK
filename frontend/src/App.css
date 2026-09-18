@@ -3,15 +3,15 @@
    ================================================ */
 
 :root {
-  --bg: #FFFFFF;
-  --surface: #F5F4EE;
-  --surface-2: #ECEAE0;
-  --surface-warm: #F2F0E4;
-  --border: rgba(20,21,15,0.08);
-  --border-hover: rgba(20,21,15,0.16);
-  --text: #14150F;
-  --text-dim: #5A5D52;
-  --text-muted: #8A8D80;
+  --bg: #F5EFE2;
+  --surface: #ECE3D0;
+  --surface-2: #E1D5BB;
+  --surface-warm: #EFE5CE;
+  --border: rgba(33,29,20,0.1);
+  --border-hover: rgba(33,29,20,0.2);
+  --text: #201C13;
+  --text-dim: #5E5844;
+  --text-muted: #8C8468;
   --gold: #1B4D3E;
   --gold-hover: #2E6E58;
   --demo-paper: #f5f4ed;
@@ -32,65 +32,47 @@
 /* ======================== Dynamic Island Nav ======================== */
 
 .island {
-  position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+  position: fixed; top: 22px; left: 50%; transform: translateX(-50%);
   z-index: 50;
-  background: rgba(255, 255, 255, 0.82);
+  background: rgba(255, 253, 247, 0.86);
   backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(20,21,15,0.08);
+  border: 1px solid rgba(33,29,20,0.1);
   border-radius: 100px;
-  padding: 8px 10px;
-  box-shadow: 0 8px 40px rgba(20,21,15,0.1), 0 0 0 1px rgba(20,21,15,0.03) inset;
-  transition: max-width 0.55s cubic-bezier(0.4, 0, 0.1, 1),
-              padding 0.45s cubic-bezier(0.4, 0, 0.1, 1),
-              border-radius 0.45s cubic-bezier(0.4, 0, 0.1, 1);
+  padding: 10px 12px;
+  box-shadow: 0 14px 36px rgba(33,29,20,0.14), 0 0 0 1px rgba(255,255,255,0.5) inset;
   max-width: 720px;
   width: auto;
 }
 .island-inner {
-  display: flex; align-items: center; gap: 8px;
+  display: flex; align-items: center; gap: 10px;
   white-space: nowrap; overflow: hidden;
 }
-.island .brand > span { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; color: var(--text); transition: font-size 0.4s; }
+.island .brand > span { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; color: var(--text); }
 .island .brand > sup { font-size: 7px; align-self: flex-start; margin: 2px 0 0 -3px; color: var(--text-dim); }
-.island .brand svg { width: 22px; height: 21px; color: var(--gold); transition: width 0.4s, height 0.4s; }
-.island .brand { display: inline-flex; align-items: center; gap: 8px; line-height: 1; flex-shrink: 0; padding-left: 8px; }
+.island .brand svg { width: 22px; height: 21px; color: var(--gold); }
+.island .brand { display: inline-flex; align-items: center; gap: 8px; line-height: 1; flex-shrink: 0; padding-left: 10px; }
 .island-links {
   display: flex; align-items: center; gap: 2px;
   margin-left: 8px;
-  transition: opacity 0.3s, max-width 0.45s cubic-bezier(0.4, 0, 0.1, 1), margin 0.45s;
-  max-width: 400px; opacity: 1;
-  overflow: hidden;
 }
 .island-links a {
-  padding: 7px 14px; font-size: 11px; font-weight: 500; color: var(--text-dim);
+  padding: 8px 16px; font-size: 11px; font-weight: 500; color: var(--text-dim);
   border-radius: 50px; transition: color 0.2s, background 0.2s;
   letter-spacing: -0.2px;
 }
-.island-links a:hover { color: var(--text); }
-.island-links a.active { color: var(--text); background: rgba(20,21,15,0.06); }
+.island-links a:hover { color: var(--text); background: rgba(33,29,20,0.05); }
+.island-links a.active { color: var(--gold); background: rgba(27,77,62,0.09); font-weight: 600; }
 .island-cta {
   display: inline-flex; align-items: center; gap: 7px;
-  padding: 8px 18px; font-size: 10.5px; font-weight: 600;
-  background: var(--gold); color: var(--bg);
+  padding: 9px 20px; font-size: 10.5px; font-weight: 600;
+  background: var(--gold); color: #FFFDF7;
   border-radius: 50px; transition: all 0.25s;
   flex-shrink: 0; margin-left: auto;
   letter-spacing: -0.2px;
+  box-shadow: 0 4px 14px rgba(27,77,62,0.25);
 }
-.island-cta:hover { background: var(--gold-hover); }
+.island-cta:hover { background: var(--gold-hover); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(27,77,62,0.3); }
 .mobile-menu-toggle { display: none; }
-
-/* Dynamic Island — Compact state */
-.island--compact {
-  max-width: 280px;
-  padding: 6px 8px;
-}
-.island--compact .island-links {
-  max-width: 0; opacity: 0; margin-left: 0;
-  pointer-events: none;
-}
-.island--compact .brand > span { font-size: 18px; }
-.island--compact .brand svg { width: 18px; height: 17px; }
-.island--compact .island-cta { padding: 7px 14px; font-size: 10px; }
 
 /* ======================== Hero ======================== */
 
@@ -544,7 +526,6 @@
 @media (max-width: 1199px) {
   .page-width { width: calc(100% - 80px); }
   .island { max-width: 640px; }
-  .island--compact { max-width: 240px; }
   .hero-grid { gap: 40px; min-height: 70vh; }
   .hero-title { font-size: clamp(44px, 5.5vw, 72px); }
   .hero-statue-wrap { max-width: 440px; }
@@ -560,7 +541,6 @@
 @media (max-width: 959px) {
   .page-width { width: calc(100% - 56px); }
   .island { max-width: 560px; }
-  .island--compact { max-width: 220px; }
   .island-links a { padding: 7px 10px; font-size: 10px; }
   .island-cta { padding: 7px 14px; font-size: 10px; }
   .hero-grid { padding-top: 60px; min-height: 65vh; gap: 30px; }
@@ -601,10 +581,6 @@
   .island .brand svg { width: 20px; height: 19px; }
   .island-links { display: none; }
   .island-cta { font-size: 10px; padding: 7px 13px; }
-  .island--compact { max-width: 210px; border-radius: 100px; }
-  .island--compact .brand > span { font-size: 16px; }
-  .island--compact .brand svg { width: 16px; height: 15px; }
-  .island--compact .island-cta { padding: 6px 11px; font-size: 9px; }
   .mobile-menu-toggle {
     display: grid; place-items: center;
     width: 32px; height: 32px; color: var(--text-dim);

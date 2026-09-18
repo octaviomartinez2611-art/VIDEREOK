@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { Brand } from './Brand';
@@ -11,23 +11,7 @@ const links = [
 
 export const Navigation = () => {
   const [active, setActive] = useState('como-funciona');
-  const [compact, setCompact] = useState(false);
   const [open, setOpen] = useState(false);
-  const lastY = useRef(0);
-
-  useEffect(() => {
-    const onScroll = () => {
-      const y = window.scrollY;
-      if (y > 120 && y > lastY.current + 4) {
-        setCompact(true);
-      } else if (y < lastY.current - 4 || y < 60) {
-        setCompact(false);
-      }
-      lastY.current = y;
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -44,7 +28,7 @@ export const Navigation = () => {
   }, []);
 
   return (
-    <header className={`island ${compact ? 'island--compact' : ''}`} data-testid="site-header">
+    <header className="island" data-testid="site-header">
       <div className="island-inner">
         <Brand />
         <nav className="island-links" aria-label="Navegación principal">
