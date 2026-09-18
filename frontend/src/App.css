@@ -168,7 +168,7 @@
 .etym-hero-img {
   width: 100%; height: 100%;
   object-fit: cover; object-position: center 25%;
-  filter: grayscale(0.6) contrast(1.05);
+  filter: grayscale(1) contrast(1.05);
 }
 .etym-hero-img-fade {
   position: absolute; inset: 0;
@@ -251,7 +251,7 @@
 }
 .etym-inscription {
   width: 100%; height: 100%; object-fit: cover;
-  filter: sepia(0.3) contrast(1.1) brightness(0.85);
+  filter: grayscale(1) contrast(1.1) brightness(0.85);
 }
 .etym-inscription-overlay {
   position: absolute; inset: 0;
@@ -264,7 +264,7 @@
 }
 .etym-bust-img {
   width: 100%; height: 100%; object-fit: cover;
-  filter: contrast(1.1) brightness(0.9);
+  filter: grayscale(1) contrast(1.1) brightness(0.9);
 }
 .etym-bust-overlay {
   position: absolute; inset: 0;
