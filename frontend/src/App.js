@@ -3,6 +3,7 @@ import Lenis from 'lenis';
 import { Toaster } from 'sonner';
 import { Navigation } from './components/Navigation';
 import { Hero } from './components/Hero';
+import { Etymology } from './components/Etymology';
 import { HowItWorks } from './components/HowItWorks';
 import { Demo } from './components/Demo';
 import { Trust } from './components/Trust';
@@ -21,6 +22,7 @@ function App() {
       <Navigation />
       <main id="contenido">
         <Hero />
+        <Etymology />
         <HowItWorks />
         <Demo />
         <Trust />
@@ -34,7 +36,7 @@ function App() {
             background: '#0F1117',
             color: '#E8E4DD',
             border: '1px solid rgba(255,255,255,0.08)',
-            fontFamily: "'Quicksand', sans-serif",
+            fontFamily: "'JetBrains Mono', monospace",
           },
         }}
       />

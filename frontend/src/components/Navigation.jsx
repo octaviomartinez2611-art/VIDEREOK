@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { Brand } from './Brand';
@@ -11,7 +11,23 @@ const links = [
 
 export const Navigation = () => {
   const [active, setActive] = useState('como-funciona');
+  const [compact, setCompact] = useState(false);
   const [open, setOpen] = useState(false);
+  const lastY = useRef(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (y > 120 && y > lastY.current + 4) {
+        setCompact(true);
+      } else if (y < lastY.current - 4 || y < 60) {
+        setCompact(false);
+      }
+      lastY.current = y;
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -28,10 +44,10 @@ export const Navigation = () => {
   }, []);
 
   return (
-    <header className="site-header" data-testid="site-header">
-      <div className="header-inner">
+    <header className={`island ${compact ? 'island--compact' : ''}`} data-testid="site-header">
+      <div className="island-inner">
         <Brand />
-        <nav className="nav-links" aria-label="Navegación principal">
+        <nav className="island-links" aria-label="Navegación principal">
           {links.map(([id, label]) => (
             <a
               key={id}
@@ -44,29 +60,28 @@ export const Navigation = () => {
             </a>
           ))}
         </nav>
-        <div className="header-actions">
-          <a href="#demo" className="nav-cta" data-testid="header-demo-button">
-            Ver demo <ArrowUpRight size={14} />
-          </a>
-          <button
-            data-testid="mobile-menu-toggle"
-            className="mobile-menu-toggle"
-            onClick={() => setOpen(!open)}
-            aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
-            aria-expanded={open}
-          >
-            {open ? <X size={21} /> : <Menu size={21} />}
-          </button>
-        </div>
+        <a href="#demo" className="island-cta" data-testid="header-demo-button">
+          Ver demo <ArrowUpRight size={13} />
+        </a>
+        <button
+          data-testid="mobile-menu-toggle"
+          className="mobile-menu-toggle"
+          onClick={() => setOpen(!open)}
+          aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
+          aria-expanded={open}
+        >
+          {open ? <X size={20} /> : <Menu size={20} />}
+        </button>
       </div>
       <AnimatePresence>
         {open && (
           <motion.nav
             className="mobile-nav"
             aria-label="Navegación móvil"
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25 }}
           >
             {links.map(([id, label]) => (
               <a
@@ -76,7 +91,7 @@ export const Navigation = () => {
                 onClick={() => { setActive(id); setOpen(false); }}
               >
                 {label}
-                <ArrowUpRight size={16} />
+                <ArrowUpRight size={14} />
               </a>
             ))}
           </motion.nav>

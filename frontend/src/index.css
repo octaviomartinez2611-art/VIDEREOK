@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -27,7 +27,7 @@
     --radius: 0.5rem;
   }
   * { @apply border-border; box-sizing: border-box; }
-  body { @apply bg-background text-foreground; margin: 0; font-family: 'Quicksand', sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  body { @apply bg-background text-foreground; margin: 0; font-family: 'JetBrains Mono', monospace; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 }
 
 html { scroll-padding-top: 100px; }

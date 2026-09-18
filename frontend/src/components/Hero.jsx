@@ -19,9 +19,6 @@ export const Hero = () => (
             Explorar la demo <ArrowRight size={18} />
           </a>
         </div>
-        <p className="hero-latin" data-testid="hero-latin">
-          Del latín <em>vidēre</em> — ver, comprender.
-        </p>
       </div>
       <div className="hero-statue-wrap" data-testid="hero-statue">
         <img
