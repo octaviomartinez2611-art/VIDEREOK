@@ -7,12 +7,12 @@ export const Hero = () => (
     <div className="hero-grid page-width">
       <div className="hero-copy">
         <h1 className="hero-title" data-testid="hero-title">
-          Menos ruido.<br />
-          <span className="gold">Más claridad.</span>
+          Software para<br />
+          <span className="gold">decisiones reales.</span>
         </h1>
         <p className="hero-description" data-testid="hero-description">
-          Tu negocio ya tiene las respuestas.
-          VIDERE conecta tus datos para que puedas verlas.
+          VIDERE convierte los datos dispersos de tu negocio
+          en un modelo único y confiable.
         </p>
         <div className="hero-ctas">
           <a href="#demo" className="hero-btn" data-testid="hero-demo-button">
