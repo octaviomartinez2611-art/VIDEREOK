@@ -11,10 +11,10 @@ import * as XLSX from "npm:xlsx@0.18.5";
 const UMBRAL_ALTA = 0.88;
 const UMBRAL_BAJA = 0.55;
 const LIMITE_DIARIO_CHAT = 40;
-// Vía OpenRouter — gratis (Qwen3 Coder, capa :free: 50 pedidos/día sin
+// Vía OpenRouter — gratis (GLM-4.5-air, capa :free: 50 pedidos/día sin
 // crédito cargado, 1000/día si se cargan 10 USD). Cambiable sin redeploy
 // guardando otro slug en videre_secrets.OPENROUTER_MODEL.
-const MODEL_DEFAULT = "qwen/qwen3-coder:free";
+const MODEL_DEFAULT = "z-ai/glm-4.5-air:free";
 
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
