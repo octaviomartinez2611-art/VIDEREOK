@@ -364,8 +364,8 @@ suba sus datos. Respondé SOLO JSON:
     const raw = await callLLM([{ role: "system", content: system }, ...historial], 300);
     const text = raw.replace(/```json|```/g, "").trim();
     return JSON.parse(text);
-  } catch {
-    return { mensaje: "El asistente no está disponible ahora mismo — probá de nuevo en un momento.", listo_para_datos: false };
+  } catch (e) {
+    return { mensaje: `[DEBUG] ${(e as Error).message}`, listo_para_datos: false };
   }
 }
 
