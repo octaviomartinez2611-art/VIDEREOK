@@ -46,7 +46,10 @@ async function llamarModelo(model: string, apiKey: string, messages: { role: str
       "HTTP-Referer": "https://elaborate-fenglisu-608659.netlify.app",
       "X-Title": "VIDERE",
     },
-    body: JSON.stringify({ model, messages, max_tokens: maxTokens }),
+    // reasoning:{exclude:true} — algunos modelos (ej. DeepSeek V4 Pro) razonan
+    // antes de responder; sin esto el contenido final puede salir vacío si
+    // el razonamiento consume todo max_tokens.
+    body: JSON.stringify({ model, messages, max_tokens: maxTokens, reasoning: { exclude: true } }),
   });
   if (!resp.ok) throw new Error(`OpenRouter ${resp.status}: ${await resp.text()}`);
   const data = await resp.json();
@@ -361,8 +364,8 @@ suba sus datos. Respondé SOLO JSON:
     const raw = await callLLM([{ role: "system", content: system }, ...historial], 300);
     const text = raw.replace(/```json|```/g, "").trim();
     return JSON.parse(text);
-  } catch (e) {
-    return { mensaje: `[DEBUG] ${(e as Error).message}`, listo_para_datos: false };
+  } catch {
+    return { mensaje: "El asistente no está disponible ahora mismo — probá de nuevo en un momento.", listo_para_datos: false };
   }
 }
 
