@@ -11,10 +11,17 @@ import * as XLSX from "npm:xlsx@0.18.5";
 const UMBRAL_ALTA = 0.88;
 const UMBRAL_BAJA = 0.55;
 const LIMITE_DIARIO_CHAT = 40;
-// Vía OpenRouter — gratis (GLM-4.5-air, capa :free: 50 pedidos/día sin
-// crédito cargado, 1000/día si se cargan 10 USD). Cambiable sin redeploy
-// guardando otro slug en videre_secrets.OPENROUTER_MODEL.
-const MODEL_DEFAULT = "z-ai/glm-4.5-air:free";
+// Vía OpenRouter — gratis. OpenRouter saca modelos :free sin aviso, así
+// que probamos esta lista en orden y usamos el primero que responda.
+// Si videre_secrets.OPENROUTER_MODEL tiene un valor, se usa ESE fijo
+// en vez de la lista (para forzar un modelo puntual sin redeploy).
+const MODELOS_GRATIS_FALLBACK = [
+  "google/gemini-2.0-flash-exp:free",
+  "meta-llama/llama-3.3-70b-instruct:free",
+  "meta-llama/llama-3.1-8b-instruct:free",
+  "qwen/qwen-2.5-72b-instruct:free",
+  "mistralai/mistral-7b-instruct:free",
+];
 
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -30,10 +37,7 @@ async function getSecret(key: string, envFallback?: string): Promise<string> {
   return value;
 }
 
-// Llama a OpenRouter (API compatible con OpenAI chat completions).
-async function callLLM(messages: { role: string; content: string }[], maxTokens = 300): Promise<string> {
-  const apiKey = await getSecret("OPENROUTER_API_KEY");
-  const model = (await getSecret("OPENROUTER_MODEL")) || MODEL_DEFAULT;
+async function llamarModelo(model: string, apiKey: string, messages: { role: string; content: string }[], maxTokens: number) {
   const resp = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
     headers: {
@@ -47,6 +51,26 @@ async function callLLM(messages: { role: string; content: string }[], maxTokens 
   if (!resp.ok) throw new Error(`OpenRouter ${resp.status}: ${await resp.text()}`);
   const data = await resp.json();
   return data.choices?.[0]?.message?.content ?? "";
+}
+
+// Llama a OpenRouter (API compatible con OpenAI chat completions). Si hay
+// un modelo fijo en videre_secrets.OPENROUTER_MODEL, se usa ese solo; si
+// no, prueba la lista de gratis en orden hasta que uno responda.
+async function callLLM(messages: { role: string; content: string }[], maxTokens = 300): Promise<string> {
+  const apiKey = await getSecret("OPENROUTER_API_KEY");
+  const fijo = await getSecret("OPENROUTER_MODEL");
+  const candidatos = fijo ? [fijo] : MODELOS_GRATIS_FALLBACK;
+
+  let ultimoError: Error | null = null;
+  for (const model of candidatos) {
+    try {
+      return await llamarModelo(model, apiKey, messages, maxTokens);
+    } catch (e) {
+      ultimoError = e as Error;
+      if (!/404|unavailable/i.test(ultimoError.message)) throw ultimoError;
+    }
+  }
+  throw ultimoError ?? new Error("Ningún modelo gratis disponible.");
 }
 
 function jsonResponse(body: unknown, status = 200) {
