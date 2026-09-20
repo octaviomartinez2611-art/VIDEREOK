@@ -8,8 +8,13 @@ import {
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 
-const API = `${process.env.REACT_APP_BACKEND_URL}/api/producto`;
-const api = (action, payload) => axios.post(`${API}/${action}`, payload, { timeout: 30000 }).then(r => r.data);
+const SUPABASE_URL = 'https://tlfzmobkduqgqkcbhgsl.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRsZnptb2JrZHVxZ3FrY2JoZ3NsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxMjcwNzAsImV4cCI6MjA5NzcwMzA3MH0.l95rLXr3CasxhBVXcoIsTlGNVOOjDsKxUNCNVOeN23I';
+const API = `${SUPABASE_URL}/functions/v1/videre`;
+const api = (action, payload) => axios.post(`${API}/${action}`, payload, {
+  timeout: 30000,
+  headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` },
+}).then(r => r.data);
 
 const workspaceId = (() => {
   const k = 'videre_workspace';
