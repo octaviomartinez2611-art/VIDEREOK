@@ -75,18 +75,15 @@ function Onboarding({ onListo }) {
   };
 
   return (
-    <div className="demo-workspace" style={{ maxWidth: 640, margin: '80px auto' }}>
+    <div className="demo-workspace onboarding-panel">
       <div className="demo-panel-heading">
         <div><h3>Contame de tu negocio.</h3><p>Un par de preguntas, y vemos qué datos tiene sentido conectar.</p></div>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxHeight: '50vh', overflowY: 'auto', padding: '20px 0' }}>
+      <div className="onboarding-chat">
         {mensajes.map((m, i) => (
-          <div key={i} style={{
-            alignSelf: m.from === 'usuario' ? 'flex-end' : 'flex-start',
-            background: m.from === 'usuario' ? 'rgba(201,169,97,.15)' : 'rgba(255,255,255,.04)',
-            padding: '12px 16px', borderRadius: 10, maxWidth: '85%',
-          }}>{m.texto}</div>
+          <div key={i} className={`onboarding-message ${m.from}`}>{m.texto}</div>
         ))}
+        {busy && <div className="onboarding-message agente"><LoaderCircle className="spin" size={14} /></div>}
       </div>
       <div className="demo-panel-footer" style={{ gap: 10 }}>
         <Input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && enviar()}
@@ -408,25 +405,21 @@ function ChatFlotante({ tablasPerfiladas, resoluciones, visible }) {
   if (!visible) return null;
   return (
     <>
-      <button onClick={() => setOpen(o => !o)} style={{
-        position: 'fixed', bottom: 24, right: 24, width: 54, height: 54, borderRadius: '50%',
-        background: '#0F1117', color: '#E8E4DD', border: 'none', fontSize: 22, cursor: 'pointer', zIndex: 40,
-      }}>{open ? <X size={22} /> : <MessageCircle size={22} />}</button>
+      <button className="chat-float-button" onClick={() => setOpen(o => !o)} aria-label={open ? 'Cerrar chat' : 'Abrir chat'}>
+        {open ? <X size={22} /> : <MessageCircle size={22} />}
+      </button>
       {open && (
-        <div style={{
-          position: 'fixed', bottom: 88, right: 24, width: 340, maxHeight: 440, background: '#151821',
-          border: '1px solid rgba(255,255,255,.08)', borderRadius: 12, display: 'flex', flexDirection: 'column', zIndex: 41, overflow: 'hidden',
-        }}>
-          <div style={{ padding: '12px 16px', background: '#0F1117', fontSize: 14 }}>Preguntale a tu negocio</div>
-          <div ref={boxRef} style={{ flex: 1, overflowY: 'auto', padding: 14, display: 'flex', flexDirection: 'column', gap: 8, maxHeight: 300 }}>
+        <div className="chat-float-panel">
+          <div className="chat-float-header">Preguntale a tu negocio</div>
+          <div ref={boxRef} className="chat-float-messages">
             {mensajes.map((m, i) => (
-              <div key={i} style={{ alignSelf: m.from === 'user' ? 'flex-end' : 'flex-start', background: m.from === 'user' ? 'rgba(201,169,97,.2)' : 'rgba(255,255,255,.05)', padding: '8px 12px', borderRadius: 8, maxWidth: '85%', fontSize: 13.5 }}>{m.texto}</div>
+              <div key={i} className={`chat-float-message ${m.from}`}>{m.texto}</div>
             ))}
           </div>
-          <div style={{ display: 'flex', borderTop: '1px solid rgba(255,255,255,.08)' }}>
+          <div className="chat-float-input-row">
             <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && enviar()}
-              placeholder="Escribí tu pregunta..." style={{ flex: 1, background: 'transparent', border: 'none', padding: 12, color: '#E8E4DD' }} />
-            <button onClick={enviar} style={{ width: 44, background: '#0F1117', border: 'none', color: '#E8E4DD' }}>↑</button>
+              placeholder="Escribí tu pregunta..." />
+            <button className="chat-float-send" onClick={enviar} aria-label="Enviar">↑</button>
           </div>
         </div>
       )}
