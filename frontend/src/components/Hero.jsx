@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 
 const STATUE_URL = 'https://images.unsplash.com/photo-1574359587026-daf1bfd26baa?auto=format&fit=crop&w=1200&q=85';
@@ -15,8 +16,11 @@ export const Hero = () => (
           VIDERE conecta tus datos para que puedas verlas.
         </p>
         <div className="hero-ctas">
-          <a href="#demo" className="hero-btn" data-testid="hero-demo-button">
-            Explorar la demo <ArrowRight size={18} />
+          <Link to="/app" className="hero-btn" data-testid="hero-app-button">
+            Explorar la plataforma <ArrowRight size={18} />
+          </Link>
+          <a href="#demo" className="hero-btn hero-btn-secondary" data-testid="hero-demo-button">
+            Ver la demo
           </a>
         </div>
       </div>
