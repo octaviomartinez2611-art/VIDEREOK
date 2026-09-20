@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { FadeImage } from './FadeImage';
 
@@ -16,8 +17,11 @@ export const Hero = () => (
           en un modelo único y confiable.
         </p>
         <div className="hero-ctas">
-          <a href="#demo" className="hero-btn" data-testid="hero-demo-button">
-            Explorar la demo <ArrowRight size={18} />
+          <Link to="/app" className="hero-btn" data-testid="hero-app-button">
+            Explorar la plataforma <ArrowRight size={18} />
+          </Link>
+          <a href="#demo" className="hero-btn hero-btn-secondary" data-testid="hero-demo-button">
+            Ver la demo
           </a>
         </div>
       </div>

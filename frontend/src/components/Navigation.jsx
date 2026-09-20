@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { Brand } from './Brand';
@@ -44,9 +45,9 @@ export const Navigation = () => {
             </a>
           ))}
         </nav>
-        <a href="#demo" className="island-cta" data-testid="header-demo-button">
-          Ver demo <ArrowUpRight size={13} />
-        </a>
+        <Link to="/app" className="island-cta" data-testid="header-app-button">
+          Empezar <ArrowUpRight size={13} />
+        </Link>
         <button
           data-testid="mobile-menu-toggle"
           className="mobile-menu-toggle"
@@ -78,6 +79,10 @@ export const Navigation = () => {
                 <ArrowUpRight size={14} />
               </a>
             ))}
+            <Link to="/app" data-testid="mobile-nav-app" onClick={() => setOpen(false)}>
+              Empezar
+              <ArrowUpRight size={14} />
+            </Link>
           </motion.nav>
         )}
       </AnimatePresence>

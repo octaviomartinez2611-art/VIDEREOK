@@ -102,7 +102,7 @@
   font-size: 14px; line-height: 1.9; color: var(--text-dim);
   max-width: 420px; letter-spacing: -0.2px;
 }
-.hero-ctas { margin-top: 36px; }
+.hero-ctas { margin-top: 36px; display: flex; gap: 14px; flex-wrap: wrap; }
 .hero-btn {
   display: inline-flex; align-items: center; gap: 12px;
   padding: 14px 28px; font-size: 12px; font-weight: 600;
@@ -112,6 +112,11 @@
 }
 .hero-btn:hover { background: var(--gold); transform: translateY(-2px); }
 .hero-btn:active { transform: translateY(0); }
+.hero-btn-secondary {
+  background: transparent; color: var(--text);
+  border: 1px solid var(--border-hover);
+}
+.hero-btn-secondary:hover { background: rgba(33,29,20,0.05); transform: translateY(-2px); }
 .hero-statue-wrap {
   position: relative; aspect-ratio: 0.78;
   max-width: 520px; justify-self: end;

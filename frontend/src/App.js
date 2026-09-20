@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Lenis from 'lenis';
 import { Toaster } from 'sonner';
 import { Navigation } from './components/Navigation';
@@ -8,9 +9,10 @@ import { HowItWorks } from './components/HowItWorks';
 import { Demo } from './components/Demo';
 import { Trust } from './components/Trust';
 import { FAQ, Footer } from './components/Closing';
+import { Dashboard } from './pages/Dashboard';
 import './App.css';
 
-function App() {
+function Landing() {
   useEffect(() => {
     const lenis = new Lenis({ duration: 1.05, smoothWheel: true, anchors: { offset: -100 }, autoRaf: true });
     return () => lenis.destroy();
@@ -29,6 +31,17 @@ function App() {
         <FAQ />
       </main>
       <Footer />
+    </>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/app" element={<Dashboard />} />
+      </Routes>
       <Toaster
         position="bottom-right"
         toastOptions={{
@@ -40,7 +53,7 @@ function App() {
           },
         }}
       />
-    </>
+    </BrowserRouter>
   );
 }
 

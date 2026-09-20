@@ -11,6 +11,11 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator
 from starlette.middleware.cors import CORSMiddleware
 
+try:
+    from . import videre_routes
+except ImportError:
+    import videre_routes
+
 load_dotenv(Path(__file__).parent / '.env')
 client = AsyncIOMotorClient(os.environ['MONGO_URL'])
 db = client[os.environ['DB_NAME']]
@@ -20,6 +25,7 @@ logger = logging.getLogger('videre')
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await db.access_requests.create_index('email', unique=True)
+    app.state.mongo_db = db  # así videre_routes.py accede a la misma conexión, sin abrir otra
     yield
     client.close()
 
@@ -83,3 +89,4 @@ async def request_access(payload: AccessRequest):
 
 
 app.include_router(api)
+app.include_router(videre_routes.router)
