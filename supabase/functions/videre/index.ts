@@ -7,27 +7,46 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "jsr:@supabase/supabase-js@2";
 import * as XLSX from "npm:xlsx@0.18.5";
-import Anthropic from "npm:@anthropic-ai/sdk@0.32.1";
 
 const UMBRAL_ALTA = 0.88;
 const UMBRAL_BAJA = 0.55;
 const LIMITE_DIARIO_CHAT = 40;
-const MODEL = "claude-sonnet-5";
+// Vía OpenRouter, no Anthropic directo — mucho más barato para este uso.
+// Verificá el slug exacto en openrouter.ai/models antes de cargar la key
+// (guardá el que corresponda en videre_secrets.OPENROUTER_MODEL si cambia).
+const MODEL_DEFAULT = "deepseek/deepseek-v4-flash-latest";
 
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
   Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
 );
 
-let cachedAnthropicKey: string | null = null;
-async function getAnthropicKey(): Promise<string> {
-  if (cachedAnthropicKey) return cachedAnthropicKey;
-  const { data } = await supabase.from("videre_secrets").select("value").eq("key", "ANTHROPIC_API_KEY").maybeSingle();
-  cachedAnthropicKey = data?.value ?? Deno.env.get("ANTHROPIC_API_KEY") ?? "";
-  return cachedAnthropicKey;
+const secretsCache: Record<string, string> = {};
+async function getSecret(key: string, envFallback?: string): Promise<string> {
+  if (secretsCache[key]) return secretsCache[key];
+  const { data } = await supabase.from("videre_secrets").select("value").eq("key", key).maybeSingle();
+  const value = data?.value ?? (envFallback ? Deno.env.get(envFallback) : null) ?? "";
+  secretsCache[key] = value;
+  return value;
 }
-async function anthropicClient() {
-  return new Anthropic({ apiKey: await getAnthropicKey() });
+
+// Llama a OpenRouter (API compatible con OpenAI chat completions).
+async function callLLM(messages: { role: string; content: string }[], maxTokens = 300): Promise<string> {
+  const apiKey = await getSecret("OPENROUTER_API_KEY");
+  const model = (await getSecret("OPENROUTER_MODEL")) || MODEL_DEFAULT;
+  const resp = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${apiKey}`,
+      "HTTP-Referer": "https://elaborate-fenglisu-608659.netlify.app",
+      "X-Title": "VIDERE",
+    },
+    body: JSON.stringify({ model, messages, max_tokens: maxTokens }),
+  });
+  if (!resp.ok) throw new Error(`OpenRouter ${resp.status}: ${await resp.text()}`);
+  const data = await resp.json();
+  return data.choices?.[0]?.message?.content ?? "";
 }
 
 function jsonResponse(body: unknown, status = 200) {
@@ -141,14 +160,13 @@ function textoSimilar(a: string, b: string): number {
 // ---------------------------------------------------------------------
 async function preguntarLlmSiMismaEntidad(match: Candidato): Promise<{ merge: boolean; confianza: string }> {
   try {
-    const client = await anthropicClient();
     const prompt = `Dos columnas de tablas distintas de un mismo negocio comparten
 ${Math.round(match.ratio * 100)}% de valores. Tipo: ${match.type}.
 ¿Probablemente representan la misma entidad del mundo real (ej. la misma persona
 en dos sistemas) o son cosas distintas que casualmente comparten datos?
 Respondé SOLO JSON: {"misma_entidad": true|false, "confianza": "alta"|"media"|"baja"}`;
-    const resp = await client.messages.create({ model: MODEL, max_tokens: 150, messages: [{ role: "user", content: prompt }] });
-    const text = (resp.content[0] as { text: string }).text.replace(/```json|```/g, "").trim();
+    const raw = await callLLM([{ role: "user", content: prompt }], 150);
+    const text = raw.replace(/```json|```/g, "").trim();
     const r = JSON.parse(text);
     return { merge: !!r.misma_entidad, confianza: r.confianza };
   } catch {
@@ -316,12 +334,11 @@ haga falta. Cuando ya tengas contexto suficiente, decilo y pedile que
 suba sus datos. Respondé SOLO JSON:
 {"mensaje": "tu próxima pregunta o cierre", "listo_para_datos": true|false}`;
   try {
-    const client = await anthropicClient();
-    const resp = await client.messages.create({ model: MODEL, max_tokens: 300, system, messages: historial as never });
-    const text = (resp.content[0] as { text: string }).text.replace(/```json|```/g, "").trim();
+    const raw = await callLLM([{ role: "system", content: system }, ...historial], 300);
+    const text = raw.replace(/```json|```/g, "").trim();
     return JSON.parse(text);
-  } catch (e) {
-    return { mensaje: (e as Error).message?.includes("api") ? "El asistente no está disponible ahora mismo." : "¿Qué tipo de negocio tenés, y qué datos solés manejar?", listo_para_datos: false };
+  } catch {
+    return { mensaje: "¿Qué tipo de negocio tenés, y qué datos solés manejar?", listo_para_datos: false };
   }
 }
 
@@ -358,9 +375,8 @@ Respondé SOLO JSON: {"en_alcance": true|false, "motivo_si_no": "...", "code": "
 
   let r: { en_alcance: boolean; motivo_si_no?: string; code?: string };
   try {
-    const client = await anthropicClient();
-    const resp = await client.messages.create({ model: MODEL, max_tokens: 300, messages: [{ role: "user", content: prompt }] });
-    const text = (resp.content[0] as { text: string }).text.replace(/```json|```/g, "").trim();
+    const raw = await callLLM([{ role: "user", content: prompt }], 300);
+    const text = raw.replace(/```json|```/g, "").trim();
     r = JSON.parse(text);
   } catch {
     return "No pude interpretar eso, ¿podés reformular?";
